@@ -19,16 +19,17 @@ class LinkedLists
     head
   end
 
-  def prepend(value)
-
+  def self.prepend(head, value)
+    head.data = value
+    Node.new(@head, head)
   end
 
   head = Node.new(@head, Node.new('one', Node.new('two', @tail)))
   head = append(head, 'three')
   p 'three'
   p head
-  head = append(head, 'four')
-  p 'four'
+  head = prepend(head, 'zero')
+  p 'zero'
   p head
 end
 
