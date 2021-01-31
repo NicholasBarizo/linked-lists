@@ -24,6 +24,12 @@ class LinkedLists
     Node.new(@head, head)
   end
 
+  def self.size(head, i=-1)
+    i += 1
+    head = size(head.next_node, i) unless head.next_node.nil?
+    head.is_a?(Integer) ? head : i
+  end
+
   head = Node.new(@head, Node.new('one', Node.new('two', @tail)))
   head = append(head, 'three')
   p 'three'
@@ -31,6 +37,7 @@ class LinkedLists
   head = prepend(head, 'zero')
   p 'zero'
   p head
+  p size(head)
 end
 
 LinkedLists.new
