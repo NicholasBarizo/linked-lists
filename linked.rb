@@ -30,6 +30,15 @@ class LinkedLists
     head.is_a?(Integer) ? head : i
   end
 
+  def self.head_value(head)
+    head.next_node.data
+  end
+
+  def self.tail_value(head)
+    head = tail_value(head.next_node) unless head.next_node.nil?
+    head.instance_of?(Node) ? head.data : head
+  end
+
   head = Node.new(@head, Node.new('one', Node.new('two', @tail)))
   head = append(head, 'three')
   p 'three'
@@ -37,7 +46,12 @@ class LinkedLists
   head = prepend(head, 'zero')
   p 'zero'
   p head
+  p 'size'
   p size(head)
+  p 'first node'
+  p head_value(head)
+  p 'last node'
+  p tail_value(head)
 end
 
 LinkedLists.new
