@@ -14,26 +14,9 @@ class LinkedLists
     @tail = nil
   end
 
-  def self.append(head, value, i = 0)
-    until head.next_node == nil
-      new_node = head.next_node
-      p i
-      sleep 1
-      p "new_node"
-      p new_node
-      p "head.next_node.nil?"
-      p head.next_node.nil?
-      p "head.next_node "
-      p head.next_node
-      puts "head"
-      p head
-      head = self.append(new_node, value, i + 1)
-    end
-    p "I: #{i}"
-    # puts 'finished' while true
-    head.next_node = Node.new(value)
+  def self.append(head, value)
+    head.next_node = head.next_node.nil? ? Node.new(value) : append(head.next_node, value)
     head
-    # head.next_node.next_node.next_node = Node.new(value)
   end
 
   def prepend(value)
@@ -41,15 +24,12 @@ class LinkedLists
   end
 
   head = Node.new(@head, Node.new('one', Node.new('two', @tail)))
-
-  p 'head'
-  p head
-  p 'two'
-  p head.next_node.next_node.data
   head = append(head, 'three')
   p 'three'
   p head
-  p head.next_node.next_node.next_node.data
+  head = append(head, 'four')
+  p 'four'
+  p head
 end
 
 LinkedLists.new
