@@ -39,19 +39,41 @@ class LinkedLists
     head.instance_of?(Node) ? head.data : head
   end
 
+  def self.at(head, index, i=-1)
+    i += 1
+    head = at(head.next_node, index, i) unless i == index
+    return head unless i == index
+
+    head.data if i == index
+  end
+
+  def self.pop(head)
+    if head.next_node.nil?
+      head = nil
+    else
+      head.next_node = pop(head.next_node)
+    end
+    head
+  end
+
   head = Node.new(@head, Node.new('one', Node.new('two', @tail)))
   head = append(head, 'three')
-  p 'three'
+  p 'append three:'
   p head
   head = prepend(head, 'zero')
-  p 'zero'
+  p 'append zero'
   p head
-  p 'size'
+  p 'get size'
   p size(head)
-  p 'first node'
+  p 'data of first node'
   p head_value(head)
-  p 'last node'
+  p 'data of last node'
   p tail_value(head)
+  p 'data of third index:'
+  p at(head, 3)
+  p pop(head)
+  p 'last node removed'
+  p head
 end
 
 LinkedLists.new
