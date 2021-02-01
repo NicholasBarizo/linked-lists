@@ -56,6 +56,15 @@ class LinkedLists
     head
   end
 
+  def self.contains?(head, value)
+    return true if head.data == value
+
+    head = contains?(head.next_node, value) unless head.next_node.nil?
+    return false if head == false
+    return true if head == true
+    return false if head.next_node.nil?
+  end
+
   head = Node.new(@head, Node.new('one', Node.new('two', @tail)))
   head = append(head, 'three')
   p 'append three:'
@@ -74,6 +83,10 @@ class LinkedLists
   p pop(head)
   p 'last node removed'
   p head
+  p 'list contains value'
+  p contains?(head, 'two')
+  p 'list doesn\'t contain value'
+  p contains?(head, 'seven')
 end
 
 LinkedLists.new
