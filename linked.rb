@@ -72,6 +72,17 @@ class LinkedLists
     return i if head.data == value
   end
 
+  def self.to_s(head)
+    string = to_s(head.next_node) unless head.next_node.nil?
+    unless string.instance_of?(Node)
+      return "( #{head.data} ) -> nil" if head.next_node.nil?
+      return string if head.data.nil?
+
+      return "( #{head.data} ) -> #{string}"
+    end
+    return "( #{head.data} ) -> nil" if head.next_node.nil?
+  end
+
   head = Node.new(@head, Node.new('one', Node.new('two', @tail)))
   head = append(head, 'three')
   p 'append three:'
@@ -96,6 +107,8 @@ class LinkedLists
   p contains?(head, 'seven')
   puts 'index of "one"'
   p find(head, 'one')
+  p 'to string'
+  p to_s(head)
 end
 
 LinkedLists.new
