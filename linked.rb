@@ -83,6 +83,16 @@ class LinkedLists
     return "( #{head.data} ) -> nil" if head.next_node.nil?
   end
 
+  def self.insert_at(head, index, value, i=-1)
+    return Node.new(value, head.next_node) if index.negative?
+
+    head.next_node = insert_at(head.next_node, index, value, i + 1) unless head.nil? || index == i
+    return Node.new(value, head) if index == i
+    return Node.new(value, nil) if head.nil?
+
+    head
+  end
+
   head = Node.new(@head, Node.new('one', Node.new('two', @tail)))
   head = append(head, 'three')
   p 'append three:'
@@ -109,6 +119,8 @@ class LinkedLists
   p find(head, 'one')
   p 'to string'
   p to_s(head)
+  puts 'insert "one.five" in between one and two'
+  p insert_at(head, 2, 'one.five')
 end
 
 LinkedLists.new
