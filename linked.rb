@@ -65,6 +65,13 @@ class LinkedLists
     return false if head.next_node.nil?
   end
 
+  def self.find(head, value, i=-1)
+    head = find(head.next_node, value, i + 1) unless head.next_node.nil? || head.data == value
+    return nil unless head.instance_of?(Node) || head.is_a?(Integer)
+    return head if head.is_a?(Integer)
+    return i if head.data == value
+  end
+
   head = Node.new(@head, Node.new('one', Node.new('two', @tail)))
   head = append(head, 'three')
   p 'append three:'
@@ -87,6 +94,8 @@ class LinkedLists
   p contains?(head, 'two')
   p 'list doesn\'t contain value'
   p contains?(head, 'seven')
+  puts 'index of "one"'
+  p find(head, 'one')
 end
 
 LinkedLists.new
