@@ -93,6 +93,15 @@ class LinkedLists
     head
   end
 
+  def self.remove_at(head, index, i=-1)
+    head.next_node = remove_at(head.next_node, index, i + 1) unless head.next_node.nil? || index == i
+    return head.next_node if index == i
+    return nil if head.next_node.nil? && index == i
+    return head if head.next_node.nil?
+
+    head
+  end
+
   head = Node.new(@head, Node.new('one', Node.new('two', @tail)))
   head = append(head, 'three')
   p 'append three:'
@@ -121,6 +130,9 @@ class LinkedLists
   p to_s(head)
   puts 'insert "one.five" in between one and two'
   p insert_at(head, 2, 'one.five')
+  puts 'remove "one.five"'
+  p remove_at(head, 3)
+  p to_s(head)
 end
 
 LinkedLists.new
